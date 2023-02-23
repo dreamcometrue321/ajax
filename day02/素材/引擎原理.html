@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1.准备数据
+        let data = {name : '小明' , age : 18}
+        // 2.准备要改变的字符串
+        let tplStr = '<h3>我叫{{ name }}，今年{{age}}岁了</h3>'
+        // 3.准备匹配的正则
+        let pattern = /{{\s*([a-zA-Z]+)\s*}}/
+        // 4.存储exec()返回结果
+        let patternResult = null 
+        // 5.每次改造一个，不断进行循环（exec只匹配第一个符合要求的结果，这正好是我们想要的）
+        while(patternResult = pattern.exec(tplStr)){
+            // patternResult[0]          是原始状态  {{ name }}
+            // patternResult[0]          是改造之后的状态   name 
+            // data[patternResult[1]]    是数据渲染之后的状态   name
+            tplStr = tplStr.replace(patternResult[0],data[patternResult[1]])
+        }
+        document.write(tplStr)
+
+    </script>
+</body>
+</html>

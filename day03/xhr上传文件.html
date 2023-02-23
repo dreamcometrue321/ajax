@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/jquery.js"></script>
+    <link rel="stylesheet" href="./lib/bootstrap.css">
+</head>
+<body>
+    <input type="file" name="file" id="file" >
+    <div class="progress" style="margin: 15px;">
+        <div id="pro" class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar"  style="width: 0%;" >
+          0%
+        </div>
+      </div>
+    <br>
+    <input type="button" value="上传文件" id="uploadFile"/>
+    
+    <img src="" alt="" id="img"/>
+    <script>
+        let btn = document.querySelector('#uploadFile')
+        btn.addEventListener('click',function(){
+            let files = document.querySelector('#file').files
+            // console.log(files)
+            if(files.length <= 0){
+                return alert('请选择文件！')
+            }
+
+            let fd = new FormData()
+            fd.append('avater',files[0])
+
+            let xhr = new XMLHttpRequest()
+            // 进度监听
+            let pro = document.querySelector('#pro')
+            xhr.upload.onprogress = function(e){
+                if(e.lengthComputable){
+                    let percent = Math.ceil((e.loaded / e.total) * 100)
+                    $('#pro').attr('style','width:'+percent+'%').html(percent+'%')
+                }
+            }
+            // 进度完成
+            xhr.upload.onload = function(){
+                $('#pro').removeClass().addClass('progress-bar progress-bar-success')
+            }
+            xhr.open('POST','http://www.liulongbin.top:3006/api/upload/avatar')
+            xhr.send(fd)
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4 && xhr.status === 200){
+                    let data = JSON.parse(xhr.responseText)
+                    let img = document.querySelector('#img')
+                    img.src = 'http://www.liulongbin.top:3006'+data.url
+                }
+            }
+        })
+    </script>
+</body>
+</html>

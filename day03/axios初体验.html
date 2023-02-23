@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/axios.js"></script>
+</head>
+<body>
+    <button id="getBtn">发起get请求</button>
+    <button id="postBtn">发起post请求</button>
+    <button id="getBtn2">直接发起get请求</button>
+    <button id="postBtn2">直接发起post请求</button>
+    <script>
+        document.querySelector('#getBtn').addEventListener('click',function(){
+            let data = {name : 'zs',age : 11}
+            axios.get('http://www.liulongbin.top:3006/api/get',{param:data}).then(function(res){
+                console.log(res)
+            })
+        })
+        document.querySelector('#postBtn').addEventListener('click',function(){
+            axios.post('http://www.liulongbin.top:3006/api/post',{address:'山东',code:267000}).then(function(res){
+                console.log(res)
+            })
+        })
+        document.querySelector('#getBtn2').addEventListener('click',function(){
+            let url = 'http://www.liulongbin.top:3006/api/get'
+            let param = {color : 'red' ,size : 12}
+            axios({
+                method : 'GET',
+                url:url,
+                // get 是 params
+                params : param
+            }).then(function(res){
+                console.log(res)
+            })
+        })
+        document.querySelector('#postBtn2').addEventListener('click',function(){
+            axios({
+                method:'POST',
+                url:'http://www.liulongbin.top:3006/api/post',
+                // post 是 data
+                data:{
+                    name:'ZhangPeng',
+                    homeland:'china'
+                }
+            }).then(function(res){
+                console.log(res)
+            })
+        })
+    </script>
+</body>
+</html>

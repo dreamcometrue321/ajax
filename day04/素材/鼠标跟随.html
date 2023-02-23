@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/jquery.js"></script>
+    <style>
+        #angel{
+            position: absolute;
+            top: 10%;
+            left: 10%;
+        }
+    </style>
+</head>
+<body>
+    <img src="./angel.gif" id="angel" />
+    <script>
+        $(function(){
+            let timer = null
+            $(document).on('mousemove',function(e){
+                if(timer){
+                    return
+                }
+                timer = setTimeout(function(){
+                    console.log(e.pageX,e.pageY)
+                    $('#angel').css('top',e.pageY-20+'px').css('left',e.pageX-50+'px')
+                    timer = null
+                },50)
+            })
+        })
+    </script>
+</body>
+</html>

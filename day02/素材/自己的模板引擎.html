@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/jquery.js"></script>
+    <script src="./js/mytemplate.js"></script>
+</head>
+<body>
+
+    <div id="box">
+
+    </div>
+    <!-- 2.定义模板 -->
+    <script type="text/html" id="tpl">
+        <h1>姓名：{{name}}</h1>
+        <h2>年龄：{{ age }}</h2>
+        <h3>身高：{{high}}</h3>
+        <h4>体重：{{weight}}</h4>
+    </script>
+    <script>
+        // 1.定义数据
+        let data = {name : '小李' , age : 18 , high : 120 , weight : 55}
+        // 3.调用template 
+        let str = template('tpl',data)
+        // 4.添加到盒子
+        $('#box')[0].innerHTML = str
+    </script>
+</body>
+</html>
